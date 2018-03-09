@@ -78,3 +78,93 @@
                      :bind ((evil-snipe-scope 'buffer)
                             (evil-snipe-enable-highlight)
                             (evil-snipe-enable-incremental-highlight))))))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
+(exec-path-from-shell-initialize)
+(exec-path-from-shell-copy-env "GOPATH")
+(exec-path-from-shell-copy-env "GOBIN")
+
+(after! go-mode
+  (defun my-go-mode-hook ()
+    (push 'company-go company-backends))
+  (add-hook 'go-mode-hook 'my-go-mode-hook))
+
+(after! company
+  (setq company-idle-delay 0.2
+        company-minimum-prefix-length 3))
+
+(after! ace-window
+  (setq aw-keys '(?h ?j ?k ?l ?a ?s ?d)
+        aw-ignore-current t))
+
+(setq omnisharp-server-executable-path
+      "/home/petterkarlsrud/.emacs.d/.cache/omnisharp/server/v1.26.3/run")
+
+(def-package! lsp-mode
+  :config
+  (lsp-mode))
+
+(def-package! lsp-ui
+  :after lsp-mode
+  :config
+  (setq lsp-ui-flycheck-enable t)
+  (setq imenu-auto-rescan t)
+  :hook
+  (lsp-mode . lsp-ui-mode)
+  (lsp-ui-mode . flycheck-mode))
+
+
+(after! org
+  (setq org-agenda-files (apply 'append
+                                (mapcar
+                                 (lambda (directory)
+                                   (directory-files-recursively
+                                    directory org-agenda-file-regexp))
+			                     '("~/Documents/Org/")))))
+
+
+(def-package! company-lsp
+  :after (lsp-mode lsp-ui)
+  :config
+  (setq company-backends '(company-lsp))
+  (setq company-lsp-async t))
+
+
+(after! prodigy
+  (prodigy-define-service
+   :name "Blkchn"
+   :command "docker-compose"
+   :args '("up" "--build")
+   :cwd "~/Development/Go/src/github.com/ptrkrlsrd/blkchn"
+   :tags '(go docker)
+   :kill-process-buffer-on-stop t)
+
+  (prodigy-define-service
+   :name "Drift"
+   :command "docker-compose"
+   :args '("up" "--build")
+   :cwd "/mnt/shared/Work/Infinitum.Drift"
+   :tags '(work infinitum drift)
+   :kill-process-buffer-on-stop t)
+
+  (prodigy-define-service
+   :name "Henting"
+   :command "docker-compose"
+   :port 5000
+   :args '("up" "--build")
+   :cwd "/mnt/shared/Work/Infinitum.Henting"
+   :tags '(work infinitum henting)
+   :kill-process-buffer-on-stop t))
+
+(defadvice load-theme (before theme-dont-propagate activate)
+    (mapc #'disable-theme custom-enabled-themes))
+
+(setq doom-font (font-spec
+                 :family "Hack"
+                 :size 11))
+
+(setq doom-theme 'doom-dracula)

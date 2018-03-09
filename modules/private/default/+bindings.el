@@ -70,17 +70,17 @@
       (:leader
         :desc "Ex command"              :nv ";"  #'evil-ex
         :desc "M-x"                     :nv ":"  #'execute-extended-command
-        :desc "Pop up scratch buffer"   :nv "x"  #'doom/open-scratch-buffer
-        :desc "Org Capture"             :nv "X"  #'+org-capture/open
+        :desc "Pop up scratch buffer"   :nv "X"  #'doom/open-scratch-buffer
+        :desc "Org Capture"             :nv "O"  #'+org-capture/open
 
         ;; Most commonly used
         :desc "Find file in project"    :n "SPC" #'projectile-find-file
         :desc "Switch workspace buffer" :n ","   #'persp-switch-to-buffer
         :desc "Switch buffer"           :n "<"   #'switch-to-buffer
         :desc "Browse files"            :n "."   #'find-file
-        :desc "Toggle last popup"       :n "~"   #'doom/popup-toggle
+        :desc "Toggle last popup"       :n "l"   #'doom/popup-toggle
         :desc "Eval expression"         :n "`"   #'eval-expression
-        :desc "Blink cursor line"       :n "DEL" #'+doom/blink-cursor
+        ;:desc "Blink cursor line"       :n "DEL" #'+doom/blink-cursor
         :desc "Jump to bookmark"        :n "RET" #'bookmark-jump
 
         ;; C-u is used by evil
@@ -113,9 +113,10 @@
           :desc "Swiper"                :nv "/" #'swiper
           :desc "Imenu"                 :nv "i" #'imenu
           :desc "Imenu across buffers"  :nv "I" #'imenu-anywhere
+          :desc "RGrep"                 :nv "r" #'rgrep
           :desc "Online providers"      :nv "o" #'+jump/online-select)
 
-        (:desc "workspace" :prefix "TAB"
+        (:desc "workspace" :prefix "w"
           :desc "Display tab bar"          :n "TAB" #'+workspace/display
           :desc "New workspace"            :n "n"   #'+workspace/new
           :desc "Load workspace from file" :n "l"   #'+workspace/load
@@ -141,16 +142,16 @@
           :desc "Switch to last workspace" :n "0"   #'+workspace/switch-to-last)
 
         (:desc "buffer" :prefix "b"
-          :desc "New empty buffer"        :n "n" #'evil-buffer-new
+          :desc "New empty buffer"        :n "N" #'evil-buffer-new
           :desc "Switch workspace buffer" :n "b" #'persp-switch-to-buffer
-          :desc "Switch buffer"           :n "B" #'switch-to-buffer
-          :desc "Kill buffer"             :n "k" #'doom/kill-this-buffer
+          :desc "Switch buffer"           :n "b" #'switch-to-buffer
+          :desc "Kill buffer"             :n "d" #'doom/kill-this-buffer
           :desc "Kill other buffers"      :n "o" #'doom/kill-other-buffers
           :desc "Save buffer"             :n "s" #'save-buffer
           :desc "Pop scratch buffer"      :n "x" #'doom/open-scratch-buffer
           :desc "Bury buffer"             :n "z" #'bury-buffer
-          :desc "Next buffer"             :n "]" #'doom/next-buffer
-          :desc "Previous buffer"         :n "[" #'doom/previous-buffer
+          :desc "Next buffer"             :n "n" #'doom/next-buffer
+          :desc "Previous buffer"         :n "p" #'doom/previous-buffer
           :desc "Sudo edit this file"     :n "S" #'doom/sudo-this-file)
 
         (:desc "code" :prefix "c"
@@ -180,10 +181,10 @@
           :desc "Yank filename"             :n "y" #'+default/yank-buffer-filename)
 
         (:desc "git" :prefix "g"
-          :desc "Git status"            :n  "S" #'magit-status
+          :desc "Git status"            :n  "s" #'magit-status
           :desc "Git blame"             :n  "b" #'magit-blame
           :desc "Git time machine"      :n  "t" #'git-timemachine-toggle
-          :desc "Git stage hunk"        :n  "s" #'git-gutter:stage-hunk
+          :desc "Git stage hunk"        :n  "S" #'git-gutter:stage-hunk
           :desc "Git revert hunk"       :n  "r" #'git-gutter:revert-hunk
           :desc "Git revert buffer"     :n  "R" #'vc-revert
           :desc "List gists"            :n  "g" #'+gist:list
@@ -213,9 +214,8 @@
           :desc "Info"                  :n  "i" #'info
           :desc "Toggle profiler"       :n  "p" #'doom/toggle-profiler)
 
-        (:desc "insert" :prefix "i"
-          :desc "From kill-ring"        :nv "y" #'counsel-yank-pop
-          :desc "From snippet"          :nv "s" #'yas-insert-snippet)
+        (:desc "org" :prefix "o"
+          :desc "Org Agenda"            :nv "o" #'org-agenda)
 
         (:desc "notes" :prefix "n"
           :desc "Find file in notes"    :n  "n" #'+default/find-in-notes
@@ -224,7 +224,7 @@
           :desc "Browse mode notes"     :n  "m" #'+org/browse-notes-for-major-mode
           :desc "Browse project notes"  :n  "p" #'+org/browse-notes-for-project)
 
-        (:desc "open" :prefix "o"
+        (:desc "open" :prefix "a"
           :desc "Default browser"       :n  "b" #'browse-url-of-file
           :desc "Debugger"              :n  "d" #'+debug/open
           :desc "REPL"                  :n  "r" #'+eval/open-repl
@@ -238,6 +238,7 @@
           :desc "APP: email"            :n "M" #'=email
           :desc "APP: twitter"          :n "T" #'=twitter
           :desc "APP: regex"            :n "X" #'=regex
+          :desc "APP: spotify"          :n "s" #'helm-spotify-plus
 
           ;; macos
           (:when IS-MAC
@@ -318,7 +319,7 @@
         ;; Navigation
         "C-h"     #'evil-window-left
         "C-j"     #'evil-window-down
-        "C-k"     #'evil-window-up
+        "C-k"     #'evil-window
         "C-l"     #'evil-window-right
         "C-w"     #'ace-window
         ;; Swapping windows
@@ -731,3 +732,6 @@
 
       (:after view
         (:map view-mode-map "<escape>" #'View-quit-all)))
+
+
+(global-set-key [(shift return)] '+default/insert-empty-line)

@@ -17,9 +17,9 @@
 
 ;;
 (after! org
-  (add-transient-hook! #'org-export-dispatch (require 'ox-pandoc))
+  ;(add-transient-hook! #'org-export-dispatch (require 'ox-pandoc))
 
-  (setq org-export-directory (expand-file-name ".export" +org-dir)
+  (setq org-export-directory (expand-file-name "export" +org-dir)
         org-export-backends '(ascii html latex md)
         org-export-with-toc t
         org-export-with-author t)

@@ -1,6 +1,6 @@
 ;;; lang/org/config.el -*- lexical-binding: t; -*-
 
-(defvar +org-dir (expand-file-name "~/work/org/")
+(defvar +org-dir (expand-file-name "~/Dropbox/Documents/Org/")
   "The directory where org files are kept.")
 
 ;; Ensure ELPA org is prioritized above built-in org.
@@ -168,14 +168,15 @@ unfold to point on startup."
                                           :background nil t)))
 
   ;; Custom links
-  (org-link-set-parameters
-   "org"
-   :complete (lambda () (+org-link-read-file "org" +org-dir))
-   :follow   (lambda (link) (find-file (expand-file-name link +org-dir)))
-   :face     (lambda (link)
-               (if (file-exists-p (expand-file-name link +org-dir))
-                   'org-link
-                 'error))))
+  (if (fboundp 'org-link-set-parameters)
+      (org-link-set-parameters
+       "org"
+       :complete (lambda () (+org-link-read-file "org" +org-dir))
+       :follow   (lambda (link) (find-file (expand-file-name link +org-dir)))
+       :face     (lambda (link)
+                   (if (file-exists-p (expand-file-name link +org-dir))
+                       'org-link
+                     'error)))))
 
 (defun +org-init-keybinds ()
   "Sets up org-mode and evil keybindings. Tries to fix the idiosyncrasies

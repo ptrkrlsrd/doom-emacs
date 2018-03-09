@@ -23,6 +23,13 @@
        (doom-project-find-file ,dir))))
 
 
+;;;###autoload
+(defun +default/insert-empty-line ()
+  (interactive)
+  (move-end-of-line nil)
+  (open-line 1)
+  (next-line 1))
+
 ;;;###autoload (autoload '+default/browse-project "private/default/autoload/default" nil t)
 (+default--def-browse-in! project (doom-project-root))
 
@@ -44,4 +51,3 @@
 ;;;###autoload (autoload '+default/find-in-snippets "private/default/autoload/default" nil t)
 (+default--def-find-in! snippets +default-snippets-dir)
 ;; NOTE No need for a browse-snippets variant, use `yas-visit-snippet-file'
-
