@@ -39,7 +39,12 @@
 (package! swiper-helm
   :ensure t
   :init)
-(package! vue-mode)
+(package! vue-mode
+  :ensure t
+  :init
+  (require 'vue-mode)
+  (add-hook 'vue-mode-hook))
+
 (package! helm-spotify-plus)
 (package! graphviz-dot-mode)
 (use-package evil-magit
@@ -48,7 +53,10 @@
 
 (use-package lsp-javascript-typescript
   :ensure t
-  :init (require 'lsp-javascript-typescript)
+  :init
+  (require 'lsp-javascript-typescript)
   (add-hook 'js-mode-hook #'lsp-mode)
   (add-hook 'typescript-mode-hook #'lsp-mode))
 
+(require 'kubernetes)
+(require 'vue-mode)

@@ -82,11 +82,14 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 
 (exec-path-from-shell-initialize)
 (exec-path-from-shell-copy-env "GOPATH")
 (exec-path-from-shell-copy-env "GOBIN")
+(exec-path-from-shell-copy-env "RUST_SRC_PATH")
 
 (after! go-mode
   (defun my-go-mode-hook ()
@@ -102,7 +105,10 @@
         aw-ignore-current t))
 
 (setq omnisharp-server-executable-path
-      "/home/petterkarlsrud/.emacs.d/.cache/omnisharp/server/v1.26.3/run")
+      "~/.emacs.d/.cache/omnisharp/server/v1.26.3/run")
+
+(setq racer-rust-src-path
+      "~/Development/Resources/rust/src/")
 
 (def-package! lsp-mode
   :config
@@ -126,45 +132,18 @@
                                     directory org-agenda-file-regexp))
 			                     '("~/Documents/Org/")))))
 
-
 (def-package! company-lsp
   :after (lsp-mode lsp-ui)
   :config
   (setq company-backends '(company-lsp))
   (setq company-lsp-async t))
 
-
-(after! prodigy
-  (prodigy-define-service
-   :name "Blkchn"
-   :command "docker-compose"
-   :args '("up" "--build")
-   :cwd "~/Development/Go/src/github.com/ptrkrlsrd/blkchn"
-   :tags '(go docker)
-   :kill-process-buffer-on-stop t)
-
-  (prodigy-define-service
-   :name "Drift"
-   :command "docker-compose"
-   :args '("up" "--build")
-   :cwd "/mnt/shared/Work/Infinitum.Drift"
-   :tags '(work infinitum drift)
-   :kill-process-buffer-on-stop t)
-
-  (prodigy-define-service
-   :name "Henting"
-   :command "docker-compose"
-   :port 5000
-   :args '("up" "--build")
-   :cwd "/mnt/shared/Work/Infinitum.Henting"
-   :tags '(work infinitum henting)
-   :kill-process-buffer-on-stop t))
-
 (defadvice load-theme (before theme-dont-propagate activate)
     (mapc #'disable-theme custom-enabled-themes))
 
 (setq doom-font (font-spec
                  :family "Hack"
-                 :size 11))
+                 :size 11)
+      doom-big-font (font-spec :family "Hack" :size 14))
 
 (setq doom-theme 'doom-dracula)
