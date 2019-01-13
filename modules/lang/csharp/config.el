@@ -24,6 +24,7 @@
          (:prefix "r"
            :n "i"  #'omnisharp-fix-code-issue-at-point
            :n "u"  #'omnisharp-fix-usings
+           :n "f"  #'omnisharp-run-code-action-refactoring
            :n "r"  #'omnisharp-rename
            :n "a"  #'omnisharp-show-last-auto-complete-result
            :n "o"  #'omnisharp-show-overloads-at-point)
