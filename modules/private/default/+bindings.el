@@ -87,6 +87,9 @@
         :desc "Universal argument"      :n "u"  #'universal-argument
         :desc "window"                  :n "w"  evil-window-map
 
+        (:desc "previous..." :prefix "j"
+          :desc "Ace Jump Line" :nv "l" #'ace-jump-line-mode)
+
         (:desc "previous..." :prefix "["
           :desc "Text size"             :nv "[" #'text-scale-decrease
           :desc "Buffer"                :nv "b" #'doom/previous-buffer
@@ -230,8 +233,8 @@
           :desc "REPL"                  :n  "r" #'+eval/open-repl
                                         :v  "r" #'+eval:repl
           :desc "Neotree"               :n  "n" #'+neotree/toggle
-          :desc "Terminal"              :n  "t" #'+term/open-popup
-          :desc "Terminal in project"   :n  "T" #'+term/open-popup-in-project
+          :desc "Terminal"              :n  "t" #'+eshell:run
+          :desc "Terminal in project"   :n  "T" #'+eshell/vsplit
 
           ;; applications
           :desc "APP: elfeed"           :n "E" #'=rss

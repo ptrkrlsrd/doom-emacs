@@ -110,19 +110,6 @@
 (setq racer-rust-src-path
       "~/Development/Resources/rust/src/")
 
-(def-package! lsp-mode
-  :config
-  (lsp-mode))
-
-(def-package! lsp-ui
-  :after lsp-mode
-  :config
-  (setq lsp-ui-flycheck-enable t)
-  (setq imenu-auto-rescan t)
-  :hook
-  (lsp-mode . lsp-ui-mode)
-  (lsp-ui-mode . flycheck-mode))
-
 
 (after! org
   (setq org-agenda-files (apply 'append
@@ -131,12 +118,6 @@
                                    (directory-files-recursively
                                     directory org-agenda-file-regexp))
 			                     '("~/Documents/Org/")))))
-
-(def-package! company-lsp
-  :after (lsp-mode lsp-ui)
-  :config
-  (setq company-backends '(company-lsp))
-  (setq company-lsp-async t))
 
 (defadvice load-theme (before theme-dont-propagate activate)
     (mapc #'disable-theme custom-enabled-themes))
