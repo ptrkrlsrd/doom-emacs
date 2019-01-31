@@ -220,10 +220,10 @@ whose dimensions may not be fully initialized by the time this is run."
 "   /N:    `dMo                                   "
 "  +N:    .mm-                                    "
 " `+-    .hy`                                     "
-"	              MF  DOOM 					      "
+"	                       					      "
+"	                       					      "
 "			                                      "
-"			      EMACS 					      "
-"			       								  "
+" DOOM EMACS                                      "
 "			       								  ")))
 
 
@@ -281,7 +281,8 @@ whose dimensions may not be fully initialized by the time this is run."
                     'follow-link t)
                    (+doom-dashboard--center (- +doom-dashboard--width 2) (buffer-string)))
                  "\n\n"))))
-          `(("Homepage" "mark-github"
+          `(
+            ("Homepage" "mark-github"
              (browse-url "https://github.com/hlissner/doom-emacs"))
             ,(when (and (featurep! :feature workspaces)
                         (file-exists-p (expand-file-name persp-auto-save-fname persp-save-dir)))

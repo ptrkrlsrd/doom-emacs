@@ -3,8 +3,9 @@
 (def-package! rotate-text
   :commands (rotate-text rotate-text-backward)
   :config
-  (push '("true" "false") rotate-text-words))
-
+  (push '("true" "false") rotate-text-words)
+  (push '("yes" "no") rotate-text-words)
+  (push '("if" "else") rotate-text-words))
 
 (def-setting! :rotate (modes &rest plist)
   "Declare :symbols, :words or :patterns that `rotate-text' will cycle through."

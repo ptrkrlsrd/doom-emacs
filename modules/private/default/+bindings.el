@@ -739,3 +739,4 @@
 
 
 (global-set-key [(shift return)] '+default/insert-empty-line)
+(map! "C-c C-c" #'eval-defun)
