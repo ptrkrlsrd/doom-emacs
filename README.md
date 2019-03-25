@@ -72,6 +72,7 @@ grokking Doom][wiki].
   for vim tabs.
 + Inline/live code evaluation (using [quickrun]), including REPLs for a variety
   of languages.
++ The best feature? Try pressing `Shift + Esc`
 
 ## Troubleshooting
 
