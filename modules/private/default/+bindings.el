@@ -738,5 +738,14 @@
         (:map view-mode-map "<escape>" #'View-quit-all)))
 
 
+;;;; Just a little joke, okay?
+(defun death ()
+    (interactive)
+    (shell-command "paplay ~/Music/death.wav &"))
+(global-set-key [(shift escape)] 'death)
+
+
+
+
 (global-set-key [(shift return)] '+default/insert-empty-line)
 (map! "C-c C-c" #'eval-defun)
