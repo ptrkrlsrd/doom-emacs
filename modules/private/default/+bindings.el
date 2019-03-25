@@ -741,7 +741,7 @@
 ;;;; Just a little joke, okay?
 (defun death ()
     (interactive)
-    (shell-command "paplay ~/Music/death.wav &"))
+    (shell-command "paplay ~/.emacs.d/death.wav &"))
 (global-set-key [(shift escape)] 'death)
 
 
