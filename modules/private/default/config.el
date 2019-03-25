@@ -110,14 +110,15 @@
 (setq racer-rust-src-path
       "~/Development/Resources/rust/src/")
 
+(if (eq system-type 'gnu/linux)
+    (setq markdown-open-command "/usr/bin/typora"))
 
 (after! org
   (setq org-agenda-files (apply 'append
-                                (mapcar
-                                 (lambda (directory)
-                                   (directory-files-recursively
-                                    directory org-agenda-file-regexp))
-			                     '("~/Documents/Org/")))))
+                                (mapcar (lambda (directory)
+                                          (directory-files-recursively
+                                           directory org-agenda-file-regexp))
+                                        '("~/Documents/Org/")))))
 
 (defadvice load-theme (before theme-dont-propagate activate)
     (mapc #'disable-theme custom-enabled-themes))
