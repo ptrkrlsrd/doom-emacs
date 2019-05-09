@@ -87,9 +87,41 @@
 
 
 (exec-path-from-shell-initialize)
-(exec-path-from-shell-copy-env "GOPATH")
-(exec-path-from-shell-copy-env "GOBIN")
-(exec-path-from-shell-copy-env "RUST_SRC_PATH")
+
+(mapc 'exec-path-from-shell-copy-env (list
+              "GOPATH"
+              "GOBIN"
+              "RUST_SRC_PATH"))
+
+(setq omnisharp-server-executable-path
+      "~/.emacs.d/.cache/omnisharp/server/v1.26.3/run")
+
+;(if (eq system-type 'gnu/linux))
+
+(setq racer-rust-src-path
+    "~/Development/Resources/rust/src/")
+
+(setq doom-font (font-spec
+                    :family "Hack"
+                    :size 11)
+        doom-big-font (font-spec :family "Hack" :size 14))
+
+(define-skeleton org-skeleton
+  "Header info for a emacs-org file."
+  "Title: "
+  "#+TITLE:" str " \n"
+  "#+AUTHOR: Petter Karlsrud\n"
+  "#+INFOJS_OPT: \n"
+  "#+BABEL: :session *R* :cache yes :results output graphics :exports both :tangle yes \n"
+  "-----")
+
+(global-set-key [C-S-f1] 'org-skeleton)
+
+(setq markdown-open-command "/usr/bin/typora")
+
+; Disable theme before reloading
+(defadvice load-theme (before theme-dont-propagate activate)
+    (mapc #'disable-theme custom-enabled-themes))
 
 (after! go-mode
   (defun my-go-mode-hook ()
@@ -104,28 +136,19 @@
   (setq aw-keys '(?h ?j ?k ?l ?a ?s ?d)
         aw-ignore-current t))
 
-(setq omnisharp-server-executable-path
-      "~/.emacs.d/.cache/omnisharp/server/v1.26.3/run")
-
-(setq racer-rust-src-path
-      "~/Development/Resources/rust/src/")
-
-(if (eq system-type 'gnu/linux)
-    (setq markdown-open-command "/usr/bin/typora"))
-
 (after! org
   (setq org-agenda-files (apply 'append
                                 (mapcar (lambda (directory)
                                           (directory-files-recursively
                                            directory org-agenda-file-regexp))
-                                        '("~/Documents/Org/")))))
+                                        '("~/Documents/Org/" "~/Dropbox/Org")))))
 
-(defadvice load-theme (before theme-dont-propagate activate)
-    (mapc #'disable-theme custom-enabled-themes))
+(after! rotate-text
+  (push '("monday" "tuesday" "wednesday" "thursday" "friday" "saturday" "sunday") rotate-text-words)
+  (push '("album" "artist" "track") rotate-text-words)
+  (push '("mandag" "tirsdag" "onsdag" "torsdag" "fredag" "lørdag" "søndag") rotate-text-words))
 
-(setq doom-font (font-spec
-                 :family "Hack"
-                 :size 11)
-      doom-big-font (font-spec :family "Hack" :size 14))
-
-(setq doom-theme 'doom-dracula)
+; Use different themes for graphic and terminal Emacs
+(if (display-graphic-p)
+    (setq doom-theme 'doom-dracula)
+  (setq doom-theme 'doom-spacegrey))

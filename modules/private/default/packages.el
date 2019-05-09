@@ -10,6 +10,10 @@
   :ensure
   :init)
 
+(package! protobuf-mode
+  :ensure t
+  :init)
+
 (package! angular-mode)
 
 (package! company-lsp
@@ -41,7 +45,11 @@
   :ensure t
   :init)
 
-(package! lsp-go)
+(package! lsp-go
+  :ensure t)
+
+(package! exec-path-from-shell
+  :ensure t)
 
 (package! lsp-mode
   :ensure t
@@ -61,7 +69,8 @@
 
 (package! lsp-vue)
 
-(package! go-tag)
+(package! go-tag
+          :ensure t)
 
 (package! spotify)
 
@@ -79,7 +88,8 @@
 
 (package! helm-spotify-plus)
 
-(package! graphviz-dot-mode)
+(package! graphviz-dot-mode
+          :ensure t)
 
 (use-package evil-magit
              :ensure t
