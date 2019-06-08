@@ -82,7 +82,7 @@
   :ensure t
   :init)
 
-(package! vue-mode
+(use-package vue-mode
   :ensure t
   :init)
 

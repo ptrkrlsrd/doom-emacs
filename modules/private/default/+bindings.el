@@ -746,7 +746,9 @@
 (global-set-key [(shift escape)] 'death)
 
 
-
-
 (global-set-key [(shift return)] '+default/insert-empty-line)
 (map! "C-c C-c" #'eval-defun)
+(map! "M-k" #'evil-backward-paragraph)
+(map! "M-j" #'evil-forward-paragraph)
+(map! "M-h" #'evil-first-non-blank)
+(map! "M-l" #'evil-end-of-line)

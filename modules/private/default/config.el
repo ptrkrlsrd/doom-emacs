@@ -137,6 +137,20 @@
         aw-ignore-current t))
 
 (after! org
+  (set-face-foreground 'org-level-1 "#ffffff")
+  (set-face-foreground 'org-level-2 "#ffffff")
+  (set-face-foreground 'org-level-3 "#ffffff")
+  (set-face-foreground 'org-level-4 "#ffffff")
+  (set-face-foreground 'org-level-5 "#ffffff")
+  (set-face-foreground 'org-level-6 "#ffffff")
+  (set-face-foreground 'org-level-7 "#ffffff")
+
+  (set-face-attribute 'org-level-4 nil :weight 'normal)
+  (set-face-attribute 'org-level-5 nil :weight 'normal)
+  (set-face-attribute 'org-level-6 nil :weight 'normal)
+  (set-face-attribute 'org-level-7 nil :weight 'normal)
+  (setq org-bullets-bullet-list '("◉" "◎" "⚫"))
+
   (setq org-agenda-files (apply 'append
                                 (mapcar (lambda (directory)
                                           (directory-files-recursively
@@ -145,8 +159,12 @@
 
 (after! rotate-text
   (push '("monday" "tuesday" "wednesday" "thursday" "friday" "saturday" "sunday") rotate-text-words)
+  (push '("update" "insert" "delete" "select") rotate-text-words)
   (push '("album" "artist" "track") rotate-text-words)
+  (push '("primary" "secondary") rotate-text-words)
   (push '("mandag" "tirsdag" "onsdag" "torsdag" "fredag" "lørdag" "søndag") rotate-text-words))
+
+(require 'vue-mode)
 
 ; Use different themes for graphic and terminal Emacs
 (if (display-graphic-p)

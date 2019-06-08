@@ -1,0 +1,8 @@
+# -*- mode: csharp -*-
+# name: interface .. { ... }
+# key: interface
+# --
+interface $1
+{
+$0
+}
